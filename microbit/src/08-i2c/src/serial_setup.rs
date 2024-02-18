@@ -10,6 +10,7 @@ pub struct UartePort<T: Instance>(UarteTx<T>, UarteRx<T>);
 
 impl<T: Instance> UartePort<T> {
     pub fn new(serial: Uarte<T>) -> UartePort<T> {
+        #[allow(unsafe_code)]
         let (tx, rx) = serial
             .split(unsafe { &mut TX_BUF }, unsafe { &mut RX_BUF })
             .unwrap();
